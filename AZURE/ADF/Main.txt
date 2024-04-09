@@ -1,0 +1,314 @@
+{
+    "name": "Main",
+    "properties": {
+        "activities": [
+            {
+                "name": "LKP_Get_ETLRun_StartTimeStamp",
+                "description": "Get the start time of ETL Pipeline Execution",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureSqlSource",
+                        "sqlReaderQuery": "SELECT CAST( SYSDATETIMEOFFSET() at time zone 'Central Standard Time' as datetime) AS ETL_Run_Start_TimeStamp",
+                        "queryTimeout": "02:00:00",
+                        "partitionOption": "None"
+                    },
+                    "dataset": {
+                        "referenceName": "ETL_Task_Control",
+                        "type": "DatasetReference"
+                    }
+                }
+            },
+            {
+                "name": "ETL Load Start Mail",
+                "description": "Send the ETL Load start mail using logic app",
+                "type": "WebActivity",
+                "dependsOn": [
+                    {
+                        "activity": "LKP_Get_ETLRun_StartTimeStamp",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "url": "https://prod-18.eastus.logic.azure.com:443/workflows/9cc42dcf101c40ef814facdf9f274677/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=wT3xcGlizzxq9TRTdOspRvU5ykipKyqGpwJdURBn1Uc",
+                    "body": {
+                        "value": "{\n\"Pipeline\":\"@{pipeline().Pipeline}\",\n\"RunId\":\"@{pipeline().RunId}\",\n\"ETLRunStartTime\":\"@{activity('LKP_Get_ETLRun_StartTimeStamp').output.firstRow.ETL_Run_Start_TimeStamp}\",\n\"ModuleName\":\"@{pipeline().parameters.ModuleName}\",\n\"DatabaseName\":\"@{pipeline().parameters.DatabaseName}\",\n\"SchemaName\":\"@{pipeline().parameters.SchemaName}\"\n}",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "FactSourcetoStage",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "DimStagetoTarget",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "Fact_Extract",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true,
+                    "parameters": {
+                        "Module_Name": {
+                            "value": "@{pipeline().parameters.ModuleName}",
+                            "type": "Expression"
+                        },
+                        "RunID": {
+                            "value": "@{pipeline().RunId}",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "FactStagetoTarget",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "FactSourcetoStage",
+                        "dependencyConditions": [
+                            "Completed"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "Duplicates Check_Fact",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true,
+                    "parameters": {
+                        "TaskPhase": "Load",
+                        "RunID": {
+                            "value": "@{pipeline().RunId}",
+                            "type": "Expression"
+                        },
+                        "ETLRunStartTime": {
+                            "value": "@{activity('LKP_Get_ETLRun_StartTimeStamp').output.firstRow.ETL_Run_Start_TimeStamp}",
+                            "type": "Expression"
+                        },
+                        "ModuleName": {
+                            "value": "@pipeline().parameters.ModuleName",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "Var_Get_Error_Message",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "ETL Load Start Mail",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "variableName": "GetErrorMessage",
+                    "value": {
+                        "value": "@concat(\nactivity('LKP_Get_ETLRun_StartTimeStamp')?.Error?.message,'|',\nactivity('ETL Load Start Mail')?.Error?.message\n)",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "Send_Failure_Message",
+                "description": "Send ETL Failure Message using logic apps",
+                "type": "WebActivity",
+                "dependsOn": [
+                    {
+                        "activity": "Var_Get_Error_Message",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "url": "https://prod-00.eastus.logic.azure.com:443/workflows/e0cf8bfce6b747cab0847bfca769c0ff/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=DCl-zIXzpA_krpcE6B_FAFQln5oe1FZf1IHgocUaKfU",
+                    "body": {
+                        "value": "{\n\"Pipeline\":\"@{pipeline().Pipeline}\",\n\"RunId\":\"@{pipeline().RunId}\",\n\"ErrorMessage\":\"variables('GetErrorMessage')\"\n}",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "AuditLogs",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "FactStagetoTarget",
+                        "dependencyConditions": [
+                            "Completed"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "Audit Logs",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true
+                }
+            },
+            {
+                "name": "DimSourcetoStage",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "ETL Load Start Mail",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "Dim_Extract",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true,
+                    "parameters": {
+                        "Module_Name": {
+                            "value": "@{pipeline().parameters.ModuleName}",
+                            "type": "Expression"
+                        },
+                        "RunID": {
+                            "value": "@{pipeline().RunId}",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "DimStagetoTarget",
+                "type": "ExecutePipeline",
+                "dependsOn": [
+                    {
+                        "activity": "DimSourcetoStage",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "Duplicates Check_Dim",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true,
+                    "parameters": {
+                        "TaskPhase": "Load",
+                        "RunID": {
+                            "value": "@{pipeline().RunId}",
+                            "type": "Expression"
+                        },
+                        "ETLRunStartTime": {
+                            "value": "@{activity('LKP_Get_ETLRun_StartTimeStamp').output.firstRow.ETL_Run_Start_TimeStamp}",
+                            "type": "Expression"
+                        },
+                        "ModuleName": {
+                            "value": "@pipeline().parameters.ModuleName",
+                            "type": "Expression"
+                        }
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "DatabaseName": {
+                "type": "string",
+                "defaultValue": "ADF-POC"
+            },
+            "SchemaName": {
+                "type": "string",
+                "defaultValue": "dbo"
+            },
+            "ModuleName": {
+                "type": "string",
+                "defaultValue": "All"
+            }
+        },
+        "variables": {
+            "Email Body": {
+                "type": "String"
+            },
+            "GetErrorMessage": {
+                "type": "String"
+            },
+            "Error Message": {
+                "type": "String"
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2023-09-26T05:36:11Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,177 @@
+{
+    "name": "Duplicates Check_Fact",
+    "properties": {
+        "activities": [
+            {
+                "name": "LKP_StgTables_Duplicate_Records_Count",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureSqlSource",
+                        "sqlReaderStoredProcedureName": "[dbo].[PROC_ETL_TASK_TABLE_DUPLICATES_CHECK]",
+                        "storedProcedureParameters": {
+                            "StgTable": {
+                                "type": "String",
+                                "value": {
+                                    "value": "@{pipeline().parameters.StgTableName}",
+                                    "type": "Expression"
+                                }
+                            },
+                            "TaskPhase": {
+                                "type": "String",
+                                "value": {
+                                    "value": "@{pipeline().parameters.TaskPhase}",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        "queryTimeout": "02:00:00",
+                        "partitionOption": "None"
+                    },
+                    "dataset": {
+                        "referenceName": "ETL_Task_Control",
+                        "type": "DatasetReference"
+                    },
+                    "firstRowOnly": true
+                }
+            },
+            {
+                "name": "IF_Duplicate_Count_Check",
+                "type": "IfCondition",
+                "dependsOn": [
+                    {
+                        "activity": "LKP_StgTables_Duplicate_Records_Count",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "expression": {
+                        "value": "@equals(activity('LKP_StgTables_Duplicate_Records_Count').output.firstRow.output_result,'No Duplicates')",
+                        "type": "Expression"
+                    },
+                    "ifFalseActivities": [
+                        {
+                            "name": "Var_DupsInfo",
+                            "type": "SetVariable",
+                            "dependsOn": [],
+                            "policy": {
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "Email Body",
+                                "value": {
+                                    "value": "@{activity('LKP_StgTables_Duplicate_Records_Count').output.firstRow.output_result}",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Web_Send_DimStageDupRecords_Info",
+                            "description": "Send duplicates records mail",
+                            "type": "WebActivity",
+                            "dependsOn": [
+                                {
+                                    "activity": "Var_DupsInfo",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "method": "POST",
+                                "headers": {
+                                    "Content-Type": "application/json"
+                                },
+                                "url": "https://prod-67.eastus.logic.azure.com:443/workflows/88fa70eb766648a1aa89b9261b0fbc5a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=z1yLwUsNtQGJULYN7cu64yfbVpJL6c_GMtMY7aUqil8",
+                                "body": {
+                                    "value": "{\"emailBody\":\"@{variables('Email Body')}\"}",
+                                    "type": "Expression"
+                                }
+                            }
+                        }
+                    ],
+                    "ifTrueActivities": [
+                        {
+                            "name": "Stg to Target - Load",
+                            "description": "Load pipeline if there are no duplicates from staging to load",
+                            "type": "ExecutePipeline",
+                            "dependsOn": [],
+                            "policy": {
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "pipeline": {
+                                    "referenceName": "Fact_Load",
+                                    "type": "PipelineReference"
+                                },
+                                "waitOnCompletion": true,
+                                "parameters": {
+                                    "ETLRunStartTime": {
+                                        "value": "@{pipeline().parameters.ETLRunStartTime}",
+                                        "type": "Expression"
+                                    },
+                                    "RunID": {
+                                        "value": "@{pipeline().parameters.RunID}",
+                                        "type": "Expression"
+                                    },
+                                    "ModuleName": {
+                                        "value": "@{pipeline().parameters.ModuleName}",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "TaskPhase": {
+                "type": "string"
+            },
+            "StgTableName": {
+                "type": "string"
+            },
+            "RunID": {
+                "type": "string"
+            },
+            "ETLRunStartTime": {
+                "type": "string"
+            },
+            "ModuleName": {
+                "type": "string"
+            }
+        },
+        "variables": {
+            "Email Body": {
+                "type": "String"
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2023-09-26T05:36:11Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

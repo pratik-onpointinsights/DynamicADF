@@ -1,0 +1,431 @@
+, ,,,,,,,Coke,
+ , , ,Residual,Distillate,Natural,HGL (excluding,Coal,and Breeze, 
+NAICS, ,Total,Fuel Oil,Fuel Oil(b),Gas(c),natural gasoline)(d),(million,(million,Other(e)
+Code(a),Subsector and Industry,(trillion Btu),(million bbl),(million bbl),(billion cu ft),(million bbl),short tons),short tons),(trillion Btu)
+,,,,,,,,,
+,,Total United States,,,,,,,
+311,Food,Q,0,*,6,*,*,0,Q
+ 3112, Grain and Oilseed Milling,2,0,*,1,0,0,0,*
+   311221,   Wet Corn Milling,1,0,*,0,0,0,0,*
+  31131,  Sugar Manufacturing,1,0,*,*,0,*,0,*
+ 3114, Fruit and Vegetable Preserving and Specialty Food ,2,0,*,2,0,0,0,*
+ 3115, Dairy Product,2,0,0,2,*,0,0,*
+ 3116, Animal Slaughtering and Processing,1,0,*,1,0,0,0,*
+312,Beverage and Tobacco Products,*,0,*,*,*,0,0,*
+ 3121, Beverages,*,0,*,*,*,0,0,*
+ 3122, Tobacco ,*,0,0,*,0,0,0,*
+313,Textile Mills,*,0,*,*,*,0,0,*
+314,Textile Product Mills,0,0,0,0,0,0,0,0
+315,Apparel,*,0,0,*,*,0,0,0
+316,Leather and Allied Products,*,0,0,*,0,0,0,0
+321,Wood Products,1,*,*,*,*,0,0,*
+   321113,   Sawmills,*,*,*,*,*,0,0,*
+ 3212," Veneer, Plywood, and Engineered Woods",*,*,*,*,0,0,0,*
+   321219,   Reconstituted Wood Products,*,*,*,0,0,0,0,*
+ 3219, Other Wood Products,*,0,*,*,*,0,0,*
+322,Paper,3,0,*,2,*,*,0,*
+   322110,   Pulp Mills,*,0,0,0,0,0,0,*
+   322121,"   Paper Mills, except Newsprint",2,0,*,2,0,*,0,*
+   322122,   Newsprint Mills,*,0,0,0,0,0,0,*
+   322130,   Paperboard Mills,*,0,*,*,*,0,0,*
+323,Printing and Related Support,Q,0,0,*,*,0,0,*
+324,Petroleum and Coal Products,903,*,*,3,*,8,0,741
+   324110,   Petroleum Refineries,0,0,0,0,0,0,0,0
+   324121,   Asphalt Paving Mixture and Block,412,*,*,1,*,0,0,411
+   324122,   Asphalt Shingle and Coating Materials,257,*,0,0,0,0,0,257
+   324191,   Petroleum Lubricating Oil and Grease Products,Q,0,0,Q,*,0,0,*
+   324199,   Other Petroleum and Coal Products,231,0,*,*,0,8,0,73
+325,Chemicals,4326,7,Q,858,881,1,0,539
+   325110,   Petrochemicals,1490,0,*,3,386,0,0,283
+   325120,   Industrial Gases,161,0,0,155,*,0,0,*
+   325180,   Other Basic Inorganic Chemicals,175,7,*,Q,16,*,0,30
+   325193,   Ethyl Alcohol ,1,0,0,1,*,0,0,*
+   325194,"   Cyclic Crudes, Intermediate and Gum and Wood Chemicals",156,0,0,67,19,*,0,6
+   325199,   Other Basic Organic Chemicals,801,0,Q,188,127,1,0,178
+   325211,   Plastics Materials and Resins,D,0,*,39,D,0,0,16
+   325212,   Synthetic Rubber,3,0,0,*,1,0,0,*
+   325220,   Artificial and Synthetic Fibers and Filaments,*,0,0,*,0,0,0,*
+   325311,   Nitrogenous Fertilizers,D,0,*,D,*,0,0,D
+   325312,   Phosphatic Fertilizers,4,0,0,4,0,0,0,0
+ 3254, Pharmaceuticals and Medicines,1,0,*,1,0,0,0,*
+   325412,   Pharmaceutical Preparation,1,0,*,*,0,0,0,*
+   325992,"   Photographic Film, Paper, Plate, and Chemicals",*,0,0,*,0,0,0,*
+326,Plastics and Rubber Products,1,0,*,Q,*,0,0,*
+327,Nonmetallic Mineral Products,Q,0,*,2,*,*,0,Q
+   327120 ,   Clay Building Material and Refractories,*,0,*,*,0,0,0,*
+   327211,   Flat Glass,*,0,0,*,0,*,0,*
+   327212,   Other Pressed and Blown Glass and Glassware,*,0,0,0,*,0,0,*
+   327213,   Glass Containers,*,0,0,0,0,0,0,*
+   327215,   Glass Products from Purchased Glass,1,0,*,1,*,0,0,*
+   327310,   Cements,*,0,0,*,0,0,0,*
+   327410,   Lime,*,0,0,*,0,0,0,0
+   327420,   Gypsum,*,0,0,*,0,0,0,*
+   327993,   Mineral Wool,*,0,*,*,*,0,0,*
+331,Primary Metals,307,0,*,42,*,12,*,14
+   331110,   Iron and Steel Mills and Ferroalloys,290,0,*,40,*,12,0,3
+ 3312, Steel Products from Purchased Steel,2,0,*,1,*,*,0,*
+ 3313, Alumina and Aluminum,10,0,*,*,*,0,0,10
+   331314,   Secondary Smelting and Alloying of Aluminum,*,0,0,*,*,0,0,*
+   331315,"   Aluminum Sheet, Plate and Foils",*,0,*,*,*,0,0,*
+   331318,"   Other Aluminum Rolling, Drawing and Extruding",*,0,*,*,0,0,0,*
+ 3314," Nonferrous Metals, except Aluminum",5,0,0,1,*,*,*,1
+   331410,   Nonferrous Metal (except Aluminum) Smelting and Refining,4,0,0,*,0,*,0,*
+ 3315, Foundries,1,0,*,1,*,*,0,*
+   331511,   Iron Foundries,1,0,*,*,*,*,0,*
+   331523,   Nonferrous Metal Die-Casting Foundries,*,0,0,*,*,0,0,*
+   331524,"   Aluminum Foundries, except Die-Casting",*,0,*,*,*,0,0,*
+332,Fabricated Metal Products,Q,0,*,Q,*,0,0,*
+333,Machinery,2,0,*,2,*,0,0,*
+334,Computer and Electronic Products,Q,0,*,Q,0,0,0,1
+   334413,   Semiconductors and Related Devices,*,0,*,*,0,0,0,*
+335,"Electrical Equip., Appliances, and Components",8,0,0,0,0,0,0,8
+336,Transportation Equipment,3,0,*,2,*,0,0,1
+   336111,   Automobiles,*,0,0,0,*,0,0,*
+   336112,   Light Trucks and Utility Vehicles,*,0,*,*,0,0,0,*
+ 3364, Aerospace Product and Parts,2,0,*,2,*,0,0,*
+   336411,   Aircraft,*,0,0,0,0,0,0,*
+337,Furniture and Related Products,*,0,0,*,0,0,0,*
+339,Miscellaneous,*,0,*,*,*,0,0,*
+,Subtotal,5609,7,1,923,881,20,*,1341
+,Miscellaneous Nonfuel Products(i),529,0,0,0,0,0,0,529
+,Total,6138,7,1,923,881,20,*,1870
+,,,,,,,,,
+,,Northeast Census Region,,,,,,,
+311,Food,*,0,*,*,*,0,0,*
+ 3112, Grain and Oilseed Milling,0,0,0,0,0,0,0,0
+   311221,   Wet Corn Milling,0,0,0,0,0,0,0,0
+  31131,  Sugar Manufacturing,0,0,0,0,0,0,0,0
+ 3114, Fruit and Vegetable Preserving and Specialty Food ,*,0,*,0,0,0,0,0
+ 3115, Dairy Product,*,0,0,*,*,0,0,*
+ 3116, Animal Slaughtering and Processing,*,0,0,*,0,0,0,0
+312,Beverage and Tobacco Products,*,0,0,*,*,0,0,*
+ 3121, Beverages,*,0,0,0,*,0,0,*
+ 3122, Tobacco ,*,0,0,*,0,0,0,0
+313,Textile Mills,*,0,0,0,*,0,0,0
+314,Textile Product Mills,0,0,0,0,0,0,0,0
+315,Apparel,0,0,0,0,0,0,0,0
+316,Leather and Allied Products,0,0,0,0,0,0,0,0
+321,Wood Products,*,*,*,0,*,0,0,*
+   321113,   Sawmills,*,0,*,0,*,0,0,*
+ 3212," Veneer, Plywood, and Engineered Woods",*,0,*,0,0,0,0,0
+   321219,   Reconstituted Wood Products,0,0,0,0,0,0,0,0
+ 3219, Other Wood Products,*,0,0,0,*,0,0,*
+322,Paper,2,0,*,2,*,0,0,*
+   322110,   Pulp Mills,*,0,0,0,0,0,0,*
+   322121,"   Paper Mills, except Newsprint",2,0,*,2,0,0,0,*
+   322122,   Newsprint Mills,0,0,0,0,0,0,0,0
+   322130,   Paperboard Mills,*,0,0,0,*,0,0,0
+323,Printing and Related Support,0,0,0,0,0,0,0,0
+324,Petroleum and Coal Products,109,0,*,*,*,0,0,109
+   324110,   Petroleum Refineries,0,0,0,0,0,0,0,0
+   324121,   Asphalt Paving Mixture and Block,76,0,*,*,0,0,0,76
+   324122,   Asphalt Shingle and Coating Materials,33,0,0,0,0,0,0,33
+   324191,   Petroleum Lubricating Oil and Grease Products,*,0,0,0,*,0,0,0
+   324199,   Other Petroleum and Coal Products,*,0,*,0,0,0,0,0
+325,Chemicals,22,0,0,21,0,0,0,*
+   325110,   Petrochemicals,*,0,0,0,0,0,0,*
+   325120,   Industrial Gases,Q,0,0,Q,0,0,0,*
+   325180,   Other Basic Inorganic Chemicals,*,0,0,*,0,0,0,*
+   325193,   Ethyl Alcohol ,0,0,0,0,0,0,0,0
+   325194,"   Cyclic Crudes, Intermediate and Gum and Wood Chemicals",0,0,0,0,0,0,0,0
+   325199,   Other Basic Organic Chemicals,21,0,0,20,0,0,0,*
+   325211,   Plastics Materials and Resins,*,0,0,0,0,0,0,*
+   325212,   Synthetic Rubber,0,0,0,0,0,0,0,0
+   325220,   Artificial and Synthetic Fibers and Filaments,0,0,0,0,0,0,0,0
+   325311,   Nitrogenous Fertilizers,0,0,0,0,0,0,0,0
+   325312,   Phosphatic Fertilizers,0,0,0,0,0,0,0,0
+ 3254, Pharmaceuticals and Medicines,*,0,0,*,0,0,0,*
+   325412,   Pharmaceutical Preparation,*,0,0,*,0,0,0,*
+   325992,"   Photographic Film, Paper, Plate, and Chemicals",0,0,0,0,0,0,0,0
+326,Plastics and Rubber Products,*,0,0,*,0,0,0,0
+327,Nonmetallic Mineral Products,Q,0,*,*,0,0,0,Q
+   327120 ,   Clay Building Material and Refractories,*,0,*,*,0,0,0,0
+   327211,   Flat Glass,0,0,0,0,0,0,0,0
+   327212,   Other Pressed and Blown Glass and Glassware,*,0,0,0,0,0,0,*
+   327213,   Glass Containers,0,0,0,0,0,0,0,0
+   327215,   Glass Products from Purchased Glass,*,0,0,*,0,0,0,*
+   327310,   Cements,*,0,0,*,0,0,0,*
+   327410,   Lime,*,0,0,*,0,0,0,0
+   327420,   Gypsum,0,0,0,0,0,0,0,0
+   327993,   Mineral Wool,0,0,0,0,0,0,0,0
+331,Primary Metals,130,0,*,*,*,6,0,1
+   331110,   Iron and Steel Mills and Ferroalloys,129,0,0,*,*,6,0,*
+ 3312, Steel Products from Purchased Steel,*,0,0,0,*,*,0,*
+ 3313, Alumina and Aluminum,*,0,0,*,0,0,0,*
+   331314,   Secondary Smelting and Alloying of Aluminum,0,0,0,0,0,0,0,0
+   331315,"   Aluminum Sheet, Plate and Foils",*,0,0,*,0,0,0,0
+   331318,"   Other Aluminum Rolling, Drawing and Extruding",*,0,0,0,0,0,0,*
+ 3314," Nonferrous Metals, except Aluminum",*,0,0,*,*,0,0,*
+   331410,   Nonferrous Metal (except Aluminum) Smelting and Refining,*,0,0,*,0,0,0,0
+ 3315, Foundries,*,0,*,*,*,0,0,*
+   331511,   Iron Foundries,*,0,0,0,*,0,0,*
+   331523,   Nonferrous Metal Die-Casting Foundries,0,0,0,0,0,0,0,0
+   331524,"   Aluminum Foundries, except Die-Casting",*,0,*,0,0,0,0,*
+332,Fabricated Metal Products,Q,0,*,0,*,0,0,*
+333,Machinery,Q,0,0,Q,*,0,0,0
+334,Computer and Electronic Products,*,0,*,0,0,0,0,*
+   334413,   Semiconductors and Related Devices,*,0,*,0,0,0,0,*
+335,"Electrical Equip., Appliances, and Components",*,0,0,0,0,0,0,*
+336,Transportation Equipment,*,0,0,*,0,0,0,*
+   336111,   Automobiles,0,0,0,0,0,0,0,0
+   336112,   Light Trucks and Utility Vehicles,0,0,0,0,0,0,0,0
+ 3364, Aerospace Product and Parts,*,0,0,*,0,0,0,*
+   336411,   Aircraft,0,0,0,0,0,0,0,0
+337,Furniture and Related Products,*,0,0,*,0,0,0,0
+339,Miscellaneous,*,0,0,0,*,0,0,0
+,Total,273,*,*,24,*,6,0,118
+,,,,,,,,,
+,,Midwest Census Region,,,,,,,
+311,Food,4,0,*,2,0,*,0,*
+ 3112, Grain and Oilseed Milling,2,0,*,1,0,0,0,*
+   311221,   Wet Corn Milling,1,0,*,0,0,0,0,*
+  31131,  Sugar Manufacturing,1,0,*,0,0,*,0,*
+ 3114, Fruit and Vegetable Preserving and Specialty Food ,*,0,0,*,0,0,0,*
+ 3115, Dairy Product,Q,0,0,Q,0,0,0,*
+ 3116, Animal Slaughtering and Processing,*,0,*,*,0,0,0,*
+312,Beverage and Tobacco Products,0,0,0,0,0,0,0,0
+ 3121, Beverages,0,0,0,0,0,0,0,0
+ 3122, Tobacco ,0,0,0,0,0,0,0,0
+313,Textile Mills,*,0,0,*,0,0,0,0
+314,Textile Product Mills,0,0,0,0,0,0,0,0
+315,Apparel,0,0,0,0,0,0,0,0
+316,Leather and Allied Products,0,0,0,0,0,0,0,0
+321,Wood Products,*,0,*,*,*,0,0,*
+   321113,   Sawmills,*,0,*,*,0,0,0,*
+ 3212," Veneer, Plywood, and Engineered Woods",*,0,0,0,0,0,0,*
+   321219,   Reconstituted Wood Products,0,0,0,0,0,0,0,0
+ 3219, Other Wood Products,*,0,*,*,*,0,0,*
+322,Paper,*,0,*,*,0,*,0,*
+   322110,   Pulp Mills,0,0,0,0,0,0,0,0
+   322121,"   Paper Mills, except Newsprint",*,0,0,0,0,*,0,*
+   322122,   Newsprint Mills,0,0,0,0,0,0,0,0
+   322130,   Paperboard Mills,*,0,0,*,0,0,0,*
+323,Printing and Related Support,*,0,0,*,0,0,0,0
+324,Petroleum and Coal Products,316,*,*,*,0,6,0,201
+   324110,   Petroleum Refineries,0,0,0,0,0,0,0,0
+   324121,   Asphalt Paving Mixture and Block,113,*,*,*,0,0,0,113
+   324122,   Asphalt Shingle and Coating Materials,88,*,0,0,0,0,0,88
+   324191,   Petroleum Lubricating Oil and Grease Products,*,0,0,*,0,0,0,*
+   324199,   Other Petroleum and Coal Products,115,0,*,0,0,6,0,*
+325,Chemicals,204,D,*,81,D,*,0,18
+   325110,   Petrochemicals,0,0,0,0,0,0,0,0
+   325120,   Industrial Gases,6,0,0,5,0,0,0,0
+   325180,   Other Basic Inorganic Chemicals,8,D,*,1,0,0,0,D
+   325193,   Ethyl Alcohol ,1,0,0,*,*,0,0,*
+   325194,"   Cyclic Crudes, Intermediate and Gum and Wood Chemicals",1,0,0,0,0,*,0,0
+   325199,   Other Basic Organic Chemicals,D,0,0,*,D,0,0,*
+   325211,   Plastics Materials and Resins,D,0,*,*,D,0,0,*
+   325212,   Synthetic Rubber,*,0,0,0,0,0,0,*
+   325220,   Artificial and Synthetic Fibers and Filaments,*,0,0,*,0,0,0,0
+   325311,   Nitrogenous Fertilizers,D,0,0,D,0,0,0,D
+   325312,   Phosphatic Fertilizers,*,0,0,*,0,0,0,0
+ 3254, Pharmaceuticals and Medicines,*,0,*,*,0,0,0,0
+   325412,   Pharmaceutical Preparation,*,0,*,*,0,0,0,0
+   325992,"   Photographic Film, Paper, Plate, and Chemicals",*,0,0,*,0,0,0,0
+326,Plastics and Rubber Products,Q,0,0,Q,*,0,0,*
+327,Nonmetallic Mineral Products,1,0,*,1,*,0,0,*
+   327120 ,   Clay Building Material and Refractories,*,0,0,0,0,0,0,*
+   327211,   Flat Glass,*,0,0,0,0,0,0,*
+   327212,   Other Pressed and Blown Glass and Glassware,*,0,0,0,*,0,0,*
+   327213,   Glass Containers,0,0,0,0,0,0,0,0
+   327215,   Glass Products from Purchased Glass,1,0,0,1,*,0,0,*
+   327310,   Cements,0,0,0,0,0,0,0,0
+   327410,   Lime,0,0,0,0,0,0,0,0
+   327420,   Gypsum,*,0,0,*,0,0,0,0
+   327993,   Mineral Wool,0,0,0,0,0,0,0,0
+331,Primary Metals,112,0,*,17,*,4,0,4
+   331110,   Iron and Steel Mills and Ferroalloys,107,0,*,16,*,4,0,*
+ 3312, Steel Products from Purchased Steel,1,0,*,*,0,*,0,*
+ 3313, Alumina and Aluminum,3,0,*,*,*,0,0,3
+   331314,   Secondary Smelting and Alloying of Aluminum,*,0,0,0,*,0,0,0
+   331315,"   Aluminum Sheet, Plate and Foils",*,0,0,*,0,0,0,*
+   331318,"   Other Aluminum Rolling, Drawing and Extruding",*,0,*,*,0,0,0,*
+ 3314," Nonferrous Metals, except Aluminum",*,0,0,*,*,0,0,*
+   331410,   Nonferrous Metal (except Aluminum) Smelting and Refining,*,0,0,0,0,0,0,*
+ 3315, Foundries,1,0,*,1,*,*,0,*
+   331511,   Iron Foundries,*,0,*,*,0,*,0,*
+   331523,   Nonferrous Metal Die-Casting Foundries,*,0,0,0,*,0,0,*
+   331524,"   Aluminum Foundries, except Die-Casting",*,0,0,*,*,0,0,*
+332,Fabricated Metal Products,*,0,*,*,*,0,0,*
+333,Machinery,*,0,*,*,*,0,0,*
+334,Computer and Electronic Products,*,0,0,*,0,0,0,*
+   334413,   Semiconductors and Related Devices,*,0,0,0,0,0,0,*
+335,"Electrical Equip., Appliances, and Components",0,0,0,0,0,0,0,0
+336,Transportation Equipment,2,0,*,1,*,0,0,*
+   336111,   Automobiles,*,0,0,0,*,0,0,*
+   336112,   Light Trucks and Utility Vehicles,*,0,*,*,0,0,0,*
+ 3364, Aerospace Product and Parts,1,0,0,*,*,0,0,*
+   336411,   Aircraft,0,0,0,0,0,0,0,0
+337,Furniture and Related Products,*,0,0,*,0,0,0,0
+339,Miscellaneous,*,0,*,*,0,0,0,*
+,Total,641,D,*,104,D,10,0,223
+,,,,,,,,,
+,,South Census Region,,,,,,,
+311,Food,2,0,*,1,0,0,0,*
+ 3112, Grain and Oilseed Milling,*,0,*,*,0,0,0,*
+   311221,   Wet Corn Milling,0,0,0,0,0,0,0,0
+  31131,  Sugar Manufacturing,*,0,0,0,0,0,0,*
+ 3114, Fruit and Vegetable Preserving and Specialty Food ,0,0,0,0,0,0,0,0
+ 3115, Dairy Product,*,0,0,*,0,0,0,*
+ 3116, Animal Slaughtering and Processing,1,0,*,1,0,0,0,*
+312,Beverage and Tobacco Products,*,0,0,*,*,0,0,*
+ 3121, Beverages,*,0,0,*,*,0,0,*
+ 3122, Tobacco ,*,0,0,0,0,0,0,*
+313,Textile Mills,*,0,*,0,0,0,0,*
+314,Textile Product Mills,0,0,0,0,0,0,0,0
+315,Apparel,*,0,0,*,*,0,0,0
+316,Leather and Allied Products,0,0,0,0,0,0,0,0
+321,Wood Products,*,*,*,*,*,0,0,*
+   321113,   Sawmills,*,*,*,0,0,0,0,*
+ 3212," Veneer, Plywood, and Engineered Woods",*,*,*,0,0,0,0,*
+   321219,   Reconstituted Wood Products,*,*,*,0,0,0,0,*
+ 3219, Other Wood Products,*,0,*,*,*,0,0,*
+322,Paper,*,0,*,*,*,0,0,*
+   322110,   Pulp Mills,*,0,0,0,0,0,0,*
+   322121,"   Paper Mills, except Newsprint",*,0,0,*,0,0,0,*
+   322122,   Newsprint Mills,0,0,0,0,0,0,0,0
+   322130,   Paperboard Mills,*,0,*,*,*,0,0,*
+323,Printing and Related Support,*,0,0,0,*,0,0,*
+324,Petroleum and Coal Products,367,0,*,Q,*,2,0,321
+   324110,   Petroleum Refineries,0,0,0,0,0,0,0,0
+   324121,   Asphalt Paving Mixture and Block,151,0,*,*,0,0,0,150
+   324122,   Asphalt Shingle and Coating Materials,108,0,0,0,0,0,0,108
+   324191,   Petroleum Lubricating Oil and Grease Products,Q,0,0,Q,*,0,0,*
+   324199,   Other Petroleum and Coal Products,106,0,0,*,0,2,0,62
+325,Chemicals,4069,D,Q,727,D,1,0,521
+   325110,   Petrochemicals,1490,0,*,3,386,0,0,283
+   325120,   Industrial Gases,136,0,0,131,*,0,0,*
+   325180,   Other Basic Inorganic Chemicals,165,D,*,Q,16,*,0,D
+   325193,   Ethyl Alcohol ,0,0,0,0,0,0,0,0
+   325194,"   Cyclic Crudes, Intermediate and Gum and Wood Chemicals",155,0,0,67,19,*,0,6
+   325199,   Other Basic Organic Chemicals,D,0,Q,168,D,1,0,177
+   325211,   Plastics Materials and Resins,D,0,0,38,D,0,0,16
+   325212,   Synthetic Rubber,3,0,0,*,1,0,0,*
+   325220,   Artificial and Synthetic Fibers and Filaments,*,0,0,0,0,0,0,*
+   325311,   Nitrogenous Fertilizers,287,0,0,276,0,0,0,*
+   325312,   Phosphatic Fertilizers,0,0,0,0,0,0,0,0
+ 3254, Pharmaceuticals and Medicines,1,0,*,*,0,0,0,*
+   325412,   Pharmaceutical Preparation,1,0,0,*,0,0,0,*
+   325992,"   Photographic Film, Paper, Plate, and Chemicals",0,0,0,0,0,0,0,0
+326,Plastics and Rubber Products,Q,0,*,0,0,0,0,*
+327,Nonmetallic Mineral Products,*,0,*,*,*,*,0,*
+   327120 ,   Clay Building Material and Refractories,*,0,*,0,0,0,0,*
+   327211,   Flat Glass,*,0,0,*,0,*,0,*
+   327212,   Other Pressed and Blown Glass and Glassware,0,0,0,0,0,0,0,0
+   327213,   Glass Containers,*,0,0,0,0,0,0,*
+   327215,   Glass Products from Purchased Glass,*,0,*,0,0,0,0,*
+   327310,   Cements,*,0,0,*,0,0,0,0
+   327410,   Lime,0,0,0,0,0,0,0,0
+   327420,   Gypsum,*,0,0,0,0,0,0,*
+   327993,   Mineral Wool,*,0,0,0,*,0,0,*
+331,Primary Metals,61,0,*,24,*,1,*,6
+   331110,   Iron and Steel Mills and Ferroalloys,52,0,0,23,0,1,0,2
+ 3312, Steel Products from Purchased Steel,*,0,0,*,0,0,0,*
+ 3313, Alumina and Aluminum,4,0,*,*,0,0,0,4
+   331314,   Secondary Smelting and Alloying of Aluminum,*,0,0,*,0,0,0,*
+   331315,"   Aluminum Sheet, Plate and Foils",*,0,*,0,0,0,0,0
+   331318,"   Other Aluminum Rolling, Drawing and Extruding",*,0,0,*,0,0,0,*
+ 3314," Nonferrous Metals, except Aluminum",4,0,0,*,*,*,*,*
+   331410,   Nonferrous Metal (except Aluminum) Smelting and Refining,4,0,0,0,0,*,0,0
+ 3315, Foundries,*,0,0,*,0,*,0,*
+   331511,   Iron Foundries,*,0,0,*,0,0,0,*
+   331523,   Nonferrous Metal Die-Casting Foundries,*,0,0,0,0,0,0,*
+   331524,"   Aluminum Foundries, except Die-Casting",*,0,0,*,0,0,0,*
+332,Fabricated Metal Products,Q,0,0,Q,*,0,0,*
+333,Machinery,Q,0,0,Q,0,0,0,*
+334,Computer and Electronic Products,Q,0,0,Q,0,0,0,*
+   334413,   Semiconductors and Related Devices,*,0,0,0,0,0,0,*
+335,"Electrical Equip., Appliances, and Components",7,0,0,0,0,0,0,7
+336,Transportation Equipment,1,0,0,*,*,0,0,*
+   336111,   Automobiles,*,0,0,0,*,0,0,0
+   336112,   Light Trucks and Utility Vehicles,*,0,0,0,0,0,0,*
+ 3364, Aerospace Product and Parts,1,0,0,*,*,0,0,*
+   336411,   Aircraft,*,0,0,0,0,0,0,*
+337,Furniture and Related Products,*,0,0,*,0,0,0,*
+339,Miscellaneous,*,0,0,*,0,0,0,*
+,Total,4513,D,Q,760,D,4,*,856
+,,,,,,,,,
+,,West Census Region,,,,,,,
+311,Food,Q,0,*,2,*,0,0,Q
+ 3112, Grain and Oilseed Milling,*,0,*,0,0,0,0,*
+   311221,   Wet Corn Milling,*,0,0,0,0,0,0,*
+  31131,  Sugar Manufacturing,*,0,0,*,0,0,0,0
+ 3114, Fruit and Vegetable Preserving and Specialty Food ,1,0,0,1,0,0,0,0
+ 3115, Dairy Product,1,0,0,1,0,0,0,*
+ 3116, Animal Slaughtering and Processing,*,0,*,*,0,0,0,0
+312,Beverage and Tobacco Products,*,0,*,*,*,0,0,*
+ 3121, Beverages,*,0,*,*,*,0,0,*
+ 3122, Tobacco ,0,0,0,0,0,0,0,0
+313,Textile Mills,0,0,0,0,0,0,0,0
+314,Textile Product Mills,0,0,0,0,0,0,0,0
+315,Apparel,0,0,0,0,0,0,0,0
+316,Leather and Allied Products,*,0,0,*,0,0,0,0
+321,Wood Products,*,*,*,*,*,0,0,*
+   321113,   Sawmills,*,0,*,*,0,0,0,0
+ 3212," Veneer, Plywood, and Engineered Woods",*,0,0,*,0,0,0,0
+   321219,   Reconstituted Wood Products,0,0,0,0,0,0,0,0
+ 3219, Other Wood Products,*,0,0,0,*,0,0,*
+322,Paper,*,0,0,0,0,0,0,*
+   322110,   Pulp Mills,0,0,0,0,0,0,0,0
+   322121,"   Paper Mills, except Newsprint",0,0,0,0,0,0,0,0
+   322122,   Newsprint Mills,*,0,0,0,0,0,0,*
+   322130,   Paperboard Mills,*,0,0,0,0,0,0,*
+323,Printing and Related Support,*,0,0,*,0,0,0,*
+324,Petroleum and Coal Products,110,0,*,*,*,0,0,110
+   324110,   Petroleum Refineries,0,0,0,0,0,0,0,0
+   324121,   Asphalt Paving Mixture and Block,72,0,*,*,*,0,0,72
+   324122,   Asphalt Shingle and Coating Materials,28,0,0,0,0,0,0,28
+   324191,   Petroleum Lubricating Oil and Grease Products,0,0,0,0,0,0,0,0
+   324199,   Other Petroleum and Coal Products,10,0,0,0,0,0,0,10
+325,Chemicals,31,0,*,29,*,*,0,*
+   325110,   Petrochemicals,0,0,0,0,0,0,0,0
+   325120,   Industrial Gases,18,0,0,17,0,0,0,*
+   325180,   Other Basic Inorganic Chemicals,1,0,0,1,0,0,0,*
+   325193,   Ethyl Alcohol ,1,0,0,1,0,0,0,*
+   325194,"   Cyclic Crudes, Intermediate and Gum and Wood Chemicals",*,0,0,0,0,*,0,0
+   325199,   Other Basic Organic Chemicals,*,0,0,*,*,0,0,*
+   325211,   Plastics Materials and Resins,*,0,0,*,0,0,0,0
+   325212,   Synthetic Rubber,0,0,0,0,0,0,0,0
+   325220,   Artificial and Synthetic Fibers and Filaments,0,0,0,0,0,0,0,0
+   325311,   Nitrogenous Fertilizers,7,0,*,6,*,0,0,0
+   325312,   Phosphatic Fertilizers,4,0,0,4,0,0,0,0
+ 3254, Pharmaceuticals and Medicines,*,0,0,*,0,0,0,0
+   325412,   Pharmaceutical Preparation,0,0,0,0,0,0,0,0
+   325992,"   Photographic Film, Paper, Plate, and Chemicals",*,0,0,0,0,0,0,*
+326,Plastics and Rubber Products,*,0,0,*,0,0,0,*
+327,Nonmetallic Mineral Products,Q,0,*,1,*,0,0,Q
+   327120 ,   Clay Building Material and Refractories,*,0,*,*,0,0,0,0
+   327211,   Flat Glass,*,0,0,0,0,0,0,*
+   327212,   Other Pressed and Blown Glass and Glassware,0,0,0,0,0,0,0,0
+   327213,   Glass Containers,*,0,0,0,0,0,0,*
+   327215,   Glass Products from Purchased Glass,1,0,0,1,*,0,0,*
+   327310,   Cements,*,0,0,*,0,0,0,*
+   327410,   Lime,0,0,0,0,0,0,0,0
+   327420,   Gypsum,*,0,0,0,0,0,0,*
+   327993,   Mineral Wool,*,0,*,*,0,0,0,*
+331,Primary Metals,4,0,*,*,*,*,0,3
+   331110,   Iron and Steel Mills and Ferroalloys,1,0,0,0,0,*,0,*
+ 3312, Steel Products from Purchased Steel,*,0,*,*,*,0,0,*
+ 3313, Alumina and Aluminum,3,0,0,*,*,0,0,3
+   331314,   Secondary Smelting and Alloying of Aluminum,*,0,0,*,0,0,0,0
+   331315,"   Aluminum Sheet, Plate and Foils",*,0,0,0,*,0,0,0
+   331318,"   Other Aluminum Rolling, Drawing and Extruding",0,0,0,0,0,0,0,0
+ 3314," Nonferrous Metals, except Aluminum",1,0,0,*,0,0,0,*
+   331410,   Nonferrous Metal (except Aluminum) Smelting and Refining,*,0,0,*,0,0,0,0
+ 3315, Foundries,*,0,0,*,*,0,0,*
+   331511,   Iron Foundries,*,0,0,*,*,0,0,*
+   331523,   Nonferrous Metal Die-Casting Foundries,*,0,0,*,0,0,0,0
+   331524,"   Aluminum Foundries, except Die-Casting",*,0,0,*,*,0,0,*
+332,Fabricated Metal Products,*,0,0,0,*,0,0,*
+333,Machinery,Q,0,0,Q,*,0,0,*
+334,Computer and Electronic Products,*,0,0,*,0,0,0,*
+   334413,   Semiconductors and Related Devices,*,0,0,*,0,0,0,*
+335,"Electrical Equip., Appliances, and Components",*,0,0,0,0,0,0,*
+336,Transportation Equipment,1,0,*,1,*,0,0,*
+   336111,   Automobiles,0,0,0,0,0,0,0,0
+   336112,   Light Trucks and Utility Vehicles,0,0,0,0,0,0,0,0
+ 3364, Aerospace Product and Parts,1,0,*,1,*,0,0,*
+   336411,   Aircraft,0,0,0,0,0,0,0,0
+337,Furniture and Related Products,0,0,0,0,0,0,0,0
+339,Miscellaneous,*,0,0,*,0,0,0,*
+,Total,182,*,*,35,*,*,0,144

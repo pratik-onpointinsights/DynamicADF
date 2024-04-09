@@ -1,0 +1,22 @@
+WITH usage_data AS (
+SELECT 
+  sku_name AS sku_name,
+  usage_date AS Date,
+  SUM(usage_quantity) AS DBUs_Consumed
+FROM system.billing.usage
+WHERE usage_date BETWEEN '2024-03-01' AND CURRENT_DATE()
+GROUP BY usage_date, sku_name
+ORDER BY usage_date
+)
+SELECT 
+  ud.sku_name,
+  ud.Date,
+  ud.DBUs_Consumed,
+  lp.pricing.default * ud.DBUs_Consumed AS `Estimated Cost (USD)`
+FROM usage_data ud
+LEFT JOIN system.billing.list_prices lp
+  ON lp.sku_name = ud.sku_name
+  AND lp.price_start_time <= ud.Date
+  AND (lp.price_end_time IS NULL OR lp.price_end_time > ud.Date)
+ORDER BY ud.Date;
+

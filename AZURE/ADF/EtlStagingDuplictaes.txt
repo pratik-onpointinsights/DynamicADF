@@ -1,0 +1,61 @@
+{
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion": "1.0.0.0",
+    "triggers": {
+      "manual": {
+        "type": "Request",
+        "kind": "Http",
+        "inputs": {
+          "schema": {
+            "properties": {
+              "emailBody": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      }
+    },
+    "actions": {
+      "Send_an_email_(V2)": {
+        "type": "ApiConnection",
+        "inputs": {
+          "host": {
+            "connection": {
+              "name": "@parameters('$connections')['office365']['connectionId']"
+            }
+          },
+          "method": "post",
+          "body": {
+            "To": "pratik@onpoininsights.us",
+            "Subject": "Notification : Azure ETL Pipelines - Found Duplicates in Stage",
+            "Body": "<p>Hi Team,<br>\n<br>\nFound duplicate in the Stage table. Please review the Stage data and fix.<br>\n<br>\n@{triggerBody()?['emailBody']}<br>\n<br>\nThank You</p>",
+            "Importance": "Normal"
+          },
+          "path": "/v2/Mail"
+        },
+        "runAfter": {}
+      }
+    },
+    "outputs": {},
+    "parameters": {
+      "$connections": {
+        "type": "Object",
+        "defaultValue": {}
+      }
+    }
+  },
+  "parameters": {
+    "$connections": {
+      "value": {
+        "office365": {
+          "id": "/subscriptions/a9a86236-a860-4663-9835-db95b14aeb16/providers/Microsoft.Web/locations/eastus/managedApis/office365",
+          "connectionId": "/subscriptions/a9a86236-a860-4663-9835-db95b14aeb16/resourceGroups/Pratik/providers/Microsoft.Web/connections/office365",
+          "connectionName": "office365"
+        }
+      }
+    }
+  }
+}

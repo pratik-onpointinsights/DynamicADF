@@ -1,0 +1,68 @@
+{
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion": "1.0.0.0",
+    "triggers": {
+      "manual": {
+        "type": "Request",
+        "kind": "Http",
+        "inputs": {
+          "schema": {
+            "properties": {
+              "ETLLoadSummary": {
+                "type": "string"
+              },
+              "Pipeline": {
+                "type": "string"
+              },
+              "RunId": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "method": "POST"
+        }
+      }
+    },
+    "actions": {
+      "Send_an_email_(V2)": {
+        "type": "ApiConnection",
+        "inputs": {
+          "host": {
+            "connection": {
+              "name": "@parameters('$connections')['office365']['connectionId']"
+            }
+          },
+          "method": "post",
+          "body": {
+            "To": "pratik@onpointinsights.us",
+            "Subject": "Notification : Azure ETL Pipelines - Load Summary",
+            "Body": "<p><strong>Pipeline Name:</strong> @{triggerBody()?['Pipeline']}<br>\n<strong>Run ID:</strong> @{triggerBody()?['RunId']}<br>\n<br>\n<strong>ETL Load Summary Details: <br>\n</strong><strong>@{triggerBody()?['ETLLoadSummary']}</strong><strong></strong></p>",
+            "Importance": "Normal"
+          },
+          "path": "/v2/Mail"
+        },
+        "runAfter": {}
+      }
+    },
+    "outputs": {},
+    "parameters": {
+      "$connections": {
+        "type": "Object",
+        "defaultValue": {}
+      }
+    }
+  },
+  "parameters": {
+    "$connections": {
+      "value": {
+        "office365": {
+          "id": "/subscriptions/a9a86236-a860-4663-9835-db95b14aeb16/providers/Microsoft.Web/locations/eastus/managedApis/office365",
+          "connectionId": "/subscriptions/a9a86236-a860-4663-9835-db95b14aeb16/resourceGroups/Pratik/providers/Microsoft.Web/connections/office365",
+          "connectionName": "office365"
+        }
+      }
+    }
+  }
+}

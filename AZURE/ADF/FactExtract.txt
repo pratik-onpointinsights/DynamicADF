@@ -1,0 +1,483 @@
+{
+    "name": "Fact_Extract",
+    "properties": {
+        "description": "Extract the data from source into staging table in target",
+        "activities": [
+            {
+                "name": "LKP_TaskControl_SourceToStage_Records",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureSqlSource",
+                        "sqlReaderQuery": {
+                            "value": "SELECT\t*\nFROM\t[dbo].[ETL_task_control]\nWHERE\tTask_Phase in ('Fact_Extract') AND \n(\nModule_Name = '@{pipeline().parameters.Module_Name}' OR\n'@{pipeline().parameters.Module_Name}' = 'All'\n)",
+                            "type": "Expression"
+                        },
+                        "queryTimeout": "02:00:00",
+                        "partitionOption": "None"
+                    },
+                    "dataset": {
+                        "referenceName": "ETL_Task_Control",
+                        "type": "DatasetReference"
+                    },
+                    "firstRowOnly": false
+                }
+            },
+            {
+                "name": "ForEach1",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "LKP_TaskControl_SourceToStage_Records",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@activity('LKP_TaskControl_SourceToStage_Records').output.value",
+                        "type": "Expression"
+                    },
+                    "batchCount": 2,
+                    "activities": [
+                        {
+                            "name": "LKP_Get_Last_Successful_Start_Timestamp",
+                            "description": "Get the last successful start timestamp from ETL_Task_Control table",
+                            "type": "Lookup",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "AzureSqlSource",
+                                    "sqlReaderQuery": {
+                                        "value": "Select Last_Successful_Start_Timestamp AS Last_Successful_Start_Timestamp\nFrom dbo.ETL_task_control\nWhere Target = '@{item().Target}'",
+                                        "type": "Expression"
+                                    },
+                                    "queryTimeout": "02:00:00",
+                                    "partitionOption": "None"
+                                },
+                                "dataset": {
+                                    "referenceName": "ETL_Task_Control",
+                                    "type": "DatasetReference"
+                                },
+                                "firstRowOnly": true
+                            }
+                        },
+                        {
+                            "name": "LKP_Get_Task_Start_Timestamp",
+                            "description": "Get ETL Start Timestamp",
+                            "type": "Lookup",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "AzureSqlSource",
+                                    "sqlReaderQuery": "SELECT CAST(SYSDATETIMEOFFSET() AT TIME ZONE 'Central Standard Time' AS DATETIME)  AS Task_Start_TimeStamp",
+                                    "queryTimeout": "02:00:00",
+                                    "partitionOption": "None"
+                                },
+                                "dataset": {
+                                    "referenceName": "ETL_Task_Control",
+                                    "type": "DatasetReference"
+                                }
+                            }
+                        },
+                        {
+                            "name": "Copy_Src_to_Stg",
+                            "description": "Copy from source to staging in target",
+                            "type": "Copy",
+                            "dependsOn": [
+                                {
+                                    "activity": "LKP_Get_Last_Successful_Start_Timestamp",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                {
+                                    "activity": "LKP_Get_Task_Start_Timestamp",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "AzureSqlSource",
+                                    "sqlReaderQuery": {
+                                        "value": "@{replace(\nitem().SQL_Text, \n'$$LAST_EXTRACT_DATE$$',\nformatDateTime(item().Last_Successful_Start_Timestamp, 'yyyy-MM-dd HH:mm:ss')\n)}",
+                                        "type": "Expression"
+                                    },
+                                    "queryTimeout": "02:00:00",
+                                    "partitionOption": "None"
+                                },
+                                "sink": {
+                                    "type": "AzureSqlSink",
+                                    "preCopyScript": {
+                                        "value": "@{concat('Truncate Table dbo.',item().Target)}",
+                                        "type": "Expression"
+                                    },
+                                    "writeBehavior": "insert",
+                                    "sqlWriterUseTableLock": false,
+                                    "disableMetricsCollection": false
+                                },
+                                "enableStaging": false,
+                                "translator": {
+                                    "type": "TabularTranslator",
+                                    "typeConversion": true,
+                                    "typeConversionSettings": {
+                                        "allowDataTruncation": true,
+                                        "treatBooleanAsNumber": false
+                                    }
+                                }
+                            },
+                            "inputs": [
+                                {
+                                    "referenceName": "Retail_Src",
+                                    "type": "DatasetReference"
+                                }
+                            ],
+                            "outputs": [
+                                {
+                                    "referenceName": "Retail_Stg",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "StagingTableName": {
+                                            "value": "@{item().Target}",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Error Message",
+                            "description": "",
+                            "type": "SetVariable",
+                            "dependsOn": [
+                                {
+                                    "activity": "Copy_Src_to_Stg",
+                                    "dependencyConditions": [
+                                        "Failed",
+                                        "Skipped"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "variableName": "Error Message",
+                                "value": {
+                                    "value": "@concat(\nactivity('LKP_Get_Last_Successful_Start_Timestamp')?.Error?.message,'|',\nactivity('LKP_Get_Last_Successful_Start_Timestamp')?.Error?.message,'|',\nactivity('Copy_Src_to_Stg')?.Error?.message\n)",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        {
+                            "name": "SP_TaskControl_Update",
+                            "description": "ETL Task control update stored procedure",
+                            "type": "SqlServerStoredProcedure",
+                            "dependsOn": [
+                                {
+                                    "activity": "Copy_Src_to_Stg",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "storedProcedureName": "[dbo].[PROC_ETL_TASK_CONTROL_UPDATE]",
+                                "storedProcedureParameters": {
+                                    "TargetTableName": {
+                                        "value": {
+                                            "value": "@{item().Target}",
+                                            "type": "Expression"
+                                        },
+                                        "type": "String"
+                                    },
+                                    "TaskStartTimeStamp": {
+                                        "value": {
+                                            "value": "@activity('LKP_Get_Task_Start_Timestamp').output.firstRow.Task_Start_TimeStamp",
+                                            "type": "Expression"
+                                        },
+                                        "type": "String"
+                                    }
+                                }
+                            },
+                            "linkedServiceName": {
+                                "referenceName": "Source",
+                                "type": "LinkedServiceReference"
+                            }
+                        },
+                        {
+                            "name": "SP_TaskRunLog_Success_Insert",
+                            "description": "Logs for ETL Tasks Success",
+                            "type": "SqlServerStoredProcedure",
+                            "dependsOn": [
+                                {
+                                    "activity": "SP_TaskControl_Update",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "storedProcedureName": "[dbo].[PROC_ETL_TASK_RUN_LOG_SUCCESS_UPDATE]",
+                                "storedProcedureParameters": {
+                                    "ETLRunNumber": {
+                                        "value": "0",
+                                        "type": "Int32"
+                                    },
+                                    "NoOfRowsDelete": {
+                                        "value": "0",
+                                        "type": "Int32"
+                                    },
+                                    "NoOfRowsInserted": {
+                                        "value": {
+                                            "value": "@activity('Copy_Src_to_Stg').output.rowsCopied",
+                                            "type": "Expression"
+                                        },
+                                        "type": "Int32"
+                                    },
+                                    "NoOfRowsUpdated": {
+                                        "value": "0",
+                                        "type": "Int32"
+                                    },
+                                    "PipelineName": {
+                                        "value": {
+                                            "value": "@{pipeline().Pipeline}",
+                                            "type": "Expression"
+                                        },
+                                        "type": "String"
+                                    },
+                                    "RunID": {
+                                        "value": {
+                                            "value": "@{pipeline().parameters.RunID}",
+                                            "type": "Expression"
+                                        },
+                                        "type": "String"
+                                    },
+                                    "Status": {
+                                        "value": {
+                                            "value": "@activity('Copy_Src_to_Stg').output.executionDetails[0].status",
+                                            "type": "Expression"
+                                        },
+                                        "type": "String"
+                                    },
+                                    "TargetTableName": {
+                                        "value": {
+                                            "value": "@{item().Target}",
+                                            "type": "Expression"
+                                        },
+                                        "type": "String"
+                                    },
+                                    "TaskKey": {
+                                        "value": {
+                                            "value": "@item().Task_Key",
+                                            "type": "Expression"
+                                        },
+                                        "type": "Int32"
+                                    },
+                                    "TaskName": {
+                                        "value": {
+                                            "value": "@{item().Task_Name}",
+                                            "type": "Expression"
+                                        },
+                                        "type": "String"
+                                    },
+                                    "TaskStartTimeStamp": {
+                                        "value": {
+                                            "value": "@{activity('LKP_Get_Task_Start_Timestamp').output.firstRow.Task_Start_TimeStamp}",
+                                            "type": "Expression"
+                                        },
+                                        "type": "Datetime"
+                                    },
+                                    "ModuleName": {
+                                        "value": {
+                                            "value": "@{item().Module_Name}",
+                                            "type": "Expression"
+                                        },
+                                        "type": "String"
+                                    }
+                                }
+                            },
+                            "linkedServiceName": {
+                                "referenceName": "Source",
+                                "type": "LinkedServiceReference"
+                            }
+                        },
+                        {
+                            "name": "SP_TaskRunLog_Failures_Insert",
+                            "description": "Logs for ETL Task Failures",
+                            "type": "SqlServerStoredProcedure",
+                            "dependsOn": [
+                                {
+                                    "activity": "Error Message",
+                                    "dependencyConditions": [
+                                        "Succeeded"
+                                    ]
+                                }
+                            ],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "storedProcedureName": "[dbo].[PROC_ETL_TASK_RUN_LOG_FAILURE_UPDATE]",
+                                "storedProcedureParameters": {
+                                    "ErrorMessage": {
+                                        "value": {
+                                            "value": "@variables('Error Message')",
+                                            "type": "Expression"
+                                        }
+                                    },
+                                    "ETLRunNumber": {
+                                        "value": "0"
+                                    },
+                                    "NoOfRowsDelete": {
+                                        "value": "0"
+                                    },
+                                    "NoOfRowsInserted": {
+                                        "value": "0"
+                                    },
+                                    "NoOfRowsUpdated": {
+                                        "value": "0"
+                                    },
+                                    "PipilineName": {
+                                        "value": {
+                                            "value": "@{pipeline().Pipeline}",
+                                            "type": "Expression"
+                                        }
+                                    },
+                                    "RunID": {
+                                        "value": {
+                                            "value": "@{pipeline().parameters.RunID}",
+                                            "type": "Expression"
+                                        }
+                                    },
+                                    "Status": {
+                                        "value": "Failed"
+                                    },
+                                    "TargetTableName": {
+                                        "value": {
+                                            "value": "@{item().Target}",
+                                            "type": "Expression"
+                                        }
+                                    },
+                                    "TaskKey": {
+                                        "value": {
+                                            "value": "@item().Task_Key",
+                                            "type": "Expression"
+                                        }
+                                    },
+                                    "TaskName": {
+                                        "value": {
+                                            "value": "@{item().Task_Name}",
+                                            "type": "Expression"
+                                        }
+                                    },
+                                    "TaskStartTimeStamp": {
+                                        "value": {
+                                            "value": "@{activity('LKP_Get_Task_Start_Timestamp').output.firstRow.Task_Start_TimeStamp}",
+                                            "type": "Expression"
+                                        }
+                                    },
+                                    "ModuleName": {
+                                        "value": {
+                                            "value": "@{item().Module_Name}\n",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                }
+                            },
+                            "linkedServiceName": {
+                                "referenceName": "Source",
+                                "type": "LinkedServiceReference"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "Module_Name": {
+                "type": "string"
+            },
+            "RunID": {
+                "type": "string"
+            }
+        },
+        "variables": {
+            "Email Body": {
+                "type": "String"
+            },
+            "ErrorMessage": {
+                "type": "String"
+            },
+            "GetErrorMessage": {
+                "type": "String"
+            },
+            "Error Message": {
+                "type": "String"
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2023-09-26T05:36:10Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

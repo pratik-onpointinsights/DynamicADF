@@ -1,0 +1,77 @@
+{
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+    "contentVersion": "1.0.0.0",
+    "triggers": {
+      "manual": {
+        "type": "Request",
+        "kind": "Http",
+        "inputs": {
+          "schema": {
+            "properties": {
+              "DatabaseName": {
+                "type": "string"
+              },
+              "ETLRunStartTime": {
+                "type": "string"
+              },
+              "ModuleName": {
+                "type": "string"
+              },
+              "Pipeline": {
+                "type": "string"
+              },
+              "RunId": {
+                "type": "string"
+              },
+              "SchemaName": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "method": "POST"
+        }
+      }
+    },
+    "actions": {
+      "Send_an_email_(V2)_2": {
+        "type": "ApiConnection",
+        "inputs": {
+          "host": {
+            "connection": {
+              "name": "@parameters('$connections')['office365']['connectionId']"
+            }
+          },
+          "method": "post",
+          "body": {
+            "To": "pratik@onpointinsights.us",
+            "Subject": "Notification: Azure Pipelines ETL Run Started",
+            "Body": "<p>@{concat('<style>\r\n\thr,p,li{margin: 0;padding: 0;box-sizing: border-box;}\r\n\t.main-heading{margin-top: 20px;font-weight: bold;font-size: 18px;letter-spacing: 0.05px;}\r\n\thr{margin-bottom: 10px;}\r\n\t.heading{font-size: 16px;font-weight: bold;margin-left: 25px;margin-bottom: 2px;}\r\n\t.detail{font-size: 16px;margin-bottom: 18px;margin-left: 25px;}\r\n\t.start-note{font-size: 16px;margin-bottom: 20px;}\r\n\t.last-item{margin-bottom: 40px;}\r\n\tul {line-height: 20px;list-style: square;}\r\n\tli {font-size: 16px;}\r\n</style>\r\n<p class=\"start-note\">Hi Team,</p>\r\n<p class=\"start-note\">ETL Pipeline has been triggered to extract & load data into <b>',triggerBody()?['SchemaName'],'</b> schema of <b>',triggerBody()?['DatabaseName'],'</b> database (Azure SQL Database).\r\nPlease find the below pipeline details.</p>\r\n<p class=\"main-heading\">ETL Pipeline Trigger Start Run Details:</p><hr>\r\n<p class=\"heading\">Pipeline Run ID:</p>\r\n<p class=\"detail\">',triggerBody()?['RunId'],'</p>\r\n<p class=\"heading\">Pipeline Name:</p>\r\n<p class=\"detail\">',triggerBody()?['Pipeline'],'</p>\r\n<p class=\"heading\">Pipeline Run Start Time:</p>\r\n<p class=\"detail\">',triggerBody()?['ETLRunStartTime'],'</p>\r\n<p class=\"heading\">Selected Module Name:</p>\r\n<p class=\"detail last-item\">',triggerBody()?['ModuleName'],'</p>\r\n<p class=\"main-heading\">In order to monitor your pipeline runs (Manually):</p><hr>\r\n<ul class=\"list\">\r\n\t<li>Open the Synapse Studio and select your workspace. Log in to workspace.</li>\r\n\t<li>Select the Monitor section on the left sidebar.</li>\r\n\t<li>Select Pipeline runs tab (on left side pane) to view the list of pipeline runs.</li>\r\n\t<li class=\"last-item\">Filter your pipeline runs based on <b>Pipeline Run Id</b> or Pipeline Name.</li>\r\n</ul>\r\n<p class=\"start-note\">Thanks and Regards,<br/>Apps Associates</p>')}</p>",
+            "Importance": "Normal"
+          },
+          "path": "/v2/Mail"
+        },
+        "runAfter": {}
+      }
+    },
+    "outputs": {},
+    "parameters": {
+      "$connections": {
+        "type": "Object",
+        "defaultValue": {}
+      }
+    }
+  },
+  "parameters": {
+    "$connections": {
+      "value": {
+        "office365": {
+          "id": "/subscriptions/a9a86236-a860-4663-9835-db95b14aeb16/providers/Microsoft.Web/locations/eastus/managedApis/office365",
+          "connectionId": "/subscriptions/a9a86236-a860-4663-9835-db95b14aeb16/resourceGroups/Pratik/providers/Microsoft.Web/connections/office365",
+          "connectionName": "office365"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+SELECT 
+    a.NAME AS PL_NUMBER,
+    a.DESCRIPTION AS PL_DESCRIPTION,
+    a.ATTRIBUTE1 AS PL_TYPE,
+    a.CONTEXT AS PL_LEVEL,
+    a.ATTRIBUTE2 AS PL_CUST_ACCOUNT_NUM,
+    a.ATTRIBUTE3 AS PL_EU_PARTY_ID,
+    a.LIST_HEADER_ID,
+    a.START_DATE_ACTIVE,
+    a.END_DATE_ACTIVE,
+    a.LIST_TYPE_CODE,
+    a.PTE_CODE,
+    b.LIST_LINE_ID,
+    b.OPERAND as LIST_PRICE,
+    NVL(e.party_name, 'UNKNOWN') as PL_EU_PARTY_NAME,
+    a.CREATION_DATE,
+    a.LAST_UPDATE_DATE,
+    a.LAST_UPDATED_BY,
+    a.CREATED_BY,
+    NULL  ATTRIBUTE1,
+    NULL  ATTRIBUTE2,
+    NULL  ATTRIBUTE3,
+    NULL ATTRIBUTE4,
+    NULL ATTRIBUTE5,
+    b.LIST_LINE_ID   INTEGRATION_ID,
+    1000                                         datasource_num_id,
+    'Y'                                          current_flag,
+    'N'                                          delete_flag,
+    sysdate                                      w_insert_dt,
+    sysdate                                      w_update_dt,  
+    c.product_attr_value Inventory_Item_Id,
+     nvl(( SELECT
+                                    account_name
+                                FROM
+                                    hz_cust_accounts
+                                WHERE
+                                    cust_account_id IN(
+                                        SELECT
+                                            cust_account_id
+                                        FROM
+                                            hz_cust_acct_sites_all
+                                        WHERE
+                                            cust_acct_site_id IN(
+                                                SELECT
+                                                    cust_acct_site_id
+                                                FROM
+                                                    hz_cust_site_uses_all
+                                                WHERE
+                                                    site_use_id IN((
+                                                        SELECT
+                                                            attribute2
+                                                        FROM
+                                                            qp_list_headers_all
+                                                          WHERE list_header_id = a.list_header_id))))),'UNKNOWN') CUST_ACCOUNT_NAME,
+                                                          
+                                                          
+                                                        nvl(( SELECT
+                                    account_number
+                                FROM
+                                    hz_cust_accounts
+                                WHERE
+                                    cust_account_id IN(
+                                        SELECT
+                                            cust_account_id
+                                        FROM
+                                            hz_cust_acct_sites_all
+                                        WHERE
+                                            cust_acct_site_id IN(
+                                                SELECT
+                                                    cust_acct_site_id
+                                                FROM
+                                                    hz_cust_site_uses_all
+                                                WHERE
+                                                    site_use_id IN((
+                                                        SELECT
+                                                            attribute2
+                                                        FROM
+                                                            qp_list_headers_all
+                                                          WHERE list_header_id = a.list_header_id))))),'UNKNOWN') CUST_ACCOUNT_NUM  
+       
+FROM    qp_list_headers a,
+        qp_list_lines b,
+        hz_parties e,
+        qp_pricing_attributes c
+WHERE   b.list_header_id = a.list_header_id
+AND     TO_NUMBER(a.ATTRIBUTE3) = e.party_id 
+AND     c.list_line_id = b.list_line_id
+AND     c.product_attribute_context = 'ITEM'
+AND     c.product_attribute = 'PRICING_ATTRIBUTE1'
